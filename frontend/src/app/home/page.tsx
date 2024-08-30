@@ -9,7 +9,6 @@ import { useRouter } from 'next/navigation'
 import OrgCard from "@/components/OrgCard";
 import BackgroundGradient from "@/components/BackgroundGradient";
 import Profile from "@/components/Profile";
-
 const encodeSans = Encode_Sans({
   subsets: ['latin'], 
   weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900'],
