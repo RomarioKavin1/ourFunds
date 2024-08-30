@@ -6,7 +6,7 @@ const encodeSans = Encode_Sans({
     weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900'],
   });
 
-const OrgCard = ({orgName, orgDescription, generalDetails }) => {
+const OrgCard: React.FC<OrgCardProps> = ({ orgName, orgDescription, generalDetails }) => {
   return (
     <div className={encodeSans.className}>
         <div className="flex flex-col w-96 h-72 bg-[white]/[0.08] border border-[white]/[0.12] transition-all
@@ -20,3 +20,10 @@ const OrgCard = ({orgName, orgDescription, generalDetails }) => {
 };
 
 export default OrgCard; 
+
+
+interface OrgCardProps {
+    orgName: string;
+    orgDescription: string;
+    generalDetails: string;
+  }

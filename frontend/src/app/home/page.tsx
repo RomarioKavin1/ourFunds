@@ -6,7 +6,9 @@ import { PiShieldPlusLight } from "react-icons/pi";
 import { PiUserCircleThin } from "react-icons/pi";
 import { useState } from "react";
 import { useRouter } from 'next/navigation'
-import OrgCard from "@/components/Orgcard";
+import OrgCard from "@/components/OrgCard";
+import BackgroundGradient from "@/components/BackgroundGradient";
+import Profile from "@/components/Profile";
 
 const encodeSans = Encode_Sans({
   subsets: ['latin'], 
@@ -72,10 +74,7 @@ function page() {
   
   return(
     <div className={encodeSans.className}>
-      {/* Top left glow effect */}
-      <div className="circlePosition w-[480px] h-[400px]
-      bg-first rounded-[100%] absolute z-1 top-[-40%] translate-x-[30px] translate-y-[40%] blur-[70px]">
-      </div>
+      <BackgroundGradient />
 
       <div className="flex h-screen">
         {/* Sidebar */}
@@ -95,13 +94,10 @@ function page() {
           </ul>
         </aside>
 
-        {/* Scrollable Content Section -left side*/}
+        {/* Scrollable Content Section -right side*/}
         <main className="flex-grow z-10 h-full overflow-y-scroll scroll-smooth p-8 bg-inherit " style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>         
           <div className="flex flex-col">
-            <div className="flex items-center justify-end gap-x-12">           
-              <p>{userId}</p>
-              <PiUserCircleThin size={48}/>
-            </div>
+            <Profile user={userId}/>
             <h1 className="text-6xl text-third font-extrabold mb-8">Your Organizations</h1>
             <div className="flex flex-wrap ml-8 gap-x-10 gap-y-8 mt-10">
             {orgList.map((org, index) => (
@@ -116,13 +112,6 @@ function page() {
           </div>
         </main>
       </div>
-
-      {/* Bottom center glow effect */}
-      <div className="absolute bottom-56 left-1/2 transform -z-10 -translate-x-1/2 
-        translate-y-[40%] w-[700px] h-[420px] bg-first rounded-[100%] blur-[70px]">
-      </div>
-
-
     </div>
   );
 }

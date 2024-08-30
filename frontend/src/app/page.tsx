@@ -8,6 +8,7 @@ import XMTP from "./assets/xmtp.png";
 import W3Auth from "./assets/web3auth.png";
 import W3AuthBW from "./assets/web3authbw.png";
 import { Encode_Sans } from '@next/font/google';
+import BackgroundGradient from "@/components/BackgroundGradient";
 
 
 const encodeSans = Encode_Sans({
@@ -25,18 +26,14 @@ export default function page({ Component, pageProps }) {
   <div className={encodeSans.className}>
     <div className="flex flex-col h-screen">
       
-      {/* Top left glow effect */}
-      <div className="circlePosition w-[480px] h-[400px]
-       bg-first rounded-[100%] absolute z-1 top-[-40%] translate-x-[30px] translate-y-[40%] blur-[70px]">
-      </div>
-  
+      <BackgroundGradient /> 
       {/* Navbar */}
       {/* <nav className=" bg-[white]/[0.12] h-12 rounded-lg mt-10 w-4/5 mx-auto text-white p-4">
         <h1 className="text-lg font-bold"></h1>
       </nav> */}
   
         {/* Hero Section */}
-      <div className="flex-grow mt-48 flex flex-col items-center justify-center">
+      <div className="flex-grow mt-48 flex flex-col items-center z-10 justify-center">
         <h1 className="text-8xl font-extrabold text-third">OurFunds</h1>
         <p className="font-light m-10">A common fund DAO (Decentralized autonomous organization) management tool </p>
           
@@ -61,10 +58,6 @@ export default function page({ Component, pageProps }) {
         </div>
       </footer>
   
-      {/* Bottom center glow effect */}
-      <div className="absolute bottom-56 left-1/2 transform -z-10 -translate-x-1/2 
-        translate-y-[40%] w-[700px] h-[420px] bg-first rounded-[100%] blur-[70px]">
-      </div>
    
     </div>
   </div>
