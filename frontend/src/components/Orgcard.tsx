@@ -9,10 +9,11 @@ const encodeSans = Encode_Sans({
 const OrgCard = ({orgName, orgDescription, generalDetails }) => {
   return (
     <div className={encodeSans.className}>
-        <div className="flex flex-col items-center justify-start w-36 h-36 bg-[white]/[0.08] border border-[white]/[0.12] transition-all
-         hover:bg-[white]/[0.2] rounded-[28px] backdrop-blur-[150px] shadow-lg">
-          <h1 className='font-medium'>Organization 1</h1>
-          <p className='font-thin'>45+members</p>
+        <div className="flex flex-col w-96 h-72 bg-[white]/[0.08] border border-[white]/[0.12] transition-all
+         hover:bg-[white]/[0.2] rounded-[28px] backdrop-blur-[150px] shadow-lg p-10">
+          <h1 className='font-semibold text-3xl'>{orgName}</h1>
+          <p className='font-normal mt-6'>{orgDescription}</p>
+          <p className='font-thin mt-7'>{generalDetails}</p>
         </div>
     </div>
   );
