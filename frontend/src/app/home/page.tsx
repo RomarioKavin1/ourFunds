@@ -1,18 +1,14 @@
 'use client'
 
-import { Encode_Sans } from "next/font/google";
 import React from "react";
 import { PiShieldPlusLight } from "react-icons/pi";
-import { PiUserCircleThin } from "react-icons/pi";
 import { useState } from "react";
 import { useRouter } from 'next/navigation'
 import OrgCard from "@/components/OrgCard";
 import BackgroundGradient from "@/components/BackgroundGradient";
 import Profile from "@/components/Profile";
-const encodeSans = Encode_Sans({
-  subsets: ['latin'], 
-  weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900'],
-});
+//TODO: Add random image/color generator for org cards 
+
 
 const exampleOrgList = [{
   orgName: "Organization 1",
@@ -72,10 +68,8 @@ function page() {
   const [orgList, setOrgList] = useState(exampleOrgList);
   
   return(
-    <div className={encodeSans.className}>
-      <BackgroundGradient />
-
       <div className="flex h-screen">
+        <BackgroundGradient />
         {/* Sidebar */}
         <aside className="w-3/5 max-w-md bg-inherit text-white rounded-2xl border border-white/10 m-4 p-4 sticky top-0 h-[calc(100vh-32px)] overflow-hidden">
           <ul className="flex flex-col items-center font-light gap-y-8">
@@ -111,7 +105,6 @@ function page() {
           </div>
         </main>
       </div>
-    </div>
   );
 }
 
