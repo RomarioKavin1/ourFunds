@@ -1,4 +1,3 @@
-import { encode } from "punycode";
 import type { Config } from "tailwindcss";
 
 const config: Config = {
@@ -21,18 +20,7 @@ const config: Config = {
         "fourth":"#E2E2B6",
       },
       fontFamily: {
-        'encode': ['Encode Sans', 'sans-serif'],
-      },
-      fontWeight: {
-        'encode-thin': '100',
-        'encode-extraLight': '200',
-        'encode-light': '300',
-        "encode-regular": '400',
-        'encode-medium': '500',
-        'encode-semibold': '600',
-        'encode-bold': '700',
-        'encode-extraBold': '800',
-        'encode-black': '900',
+        
       },
     },
   },
