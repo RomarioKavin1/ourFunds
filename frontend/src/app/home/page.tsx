@@ -53,7 +53,7 @@ function page() {
       <div className="flex h-screen">
         <BackgroundGradient />
         {/* Sidebar */}
-        <aside className="w-3/5 max-w-md bg-inherit text-white rounded-2xl border border-white/10 m-4 p-4 sticky top-0 h-[calc(100vh-32px)] overflow-hidden">
+        <aside className="w-3/5 max-w-md bg-inherit text-fourthrounded-2xl border text-[white]/[0.75] border-white/10 m-4 p-4 sticky top-0 h-[calc(100vh-32px)] overflow-hidden">
           <ul className="flex flex-col items-center h-full font-light gap-y-8">
             <li className="mb-2 mt-16 w-11/12 py-5 text-center font-medium rounded-2xl">
               <button className="w-full py-5 rounded-2xl bg-[white]/[0.08] flex justify-center hover:bg-[white]/[0.2] 
@@ -90,6 +90,7 @@ function page() {
                     orgName={org.orgName}
                     orgDescription={org.orgDescription}
                     generalDetails={org.generalDetails}
+                    imageIndex={index}
                   />
                 ))}
               </div>
