@@ -19,7 +19,7 @@ const OrganizationDetail = () => {
   const [creatorAddress, setCreatorAddress] = useState(exampleOrgList[0].creatorAddress);
   const [dateCreated, setDateCreated] = useState(exampleOrgList[0].dateCreated);
 
-  const [isLoading, setIsLoading] = useState(true);   //Loading state
+  const [isLoading, setIsLoading] = useState(false);   //Loading state
   
   const { id } = useParams();
 

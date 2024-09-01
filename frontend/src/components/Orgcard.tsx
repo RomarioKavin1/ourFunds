@@ -28,7 +28,7 @@ const OrgCard: React.FC<OrgCardProps> = ({ id, orgName, orgDescription, generalD
       <img
         src={images[imageIndex % images.length]}
         alt="Random"
-        className="absolute -top-5 -right-5 w-16 h-16 object-contain "
+        className="absolute -top-5 -right-5 w-16 h-16 object-contain"
       />
       
       <h1 className='font-semibold text-3xl'>{orgName}</h1>

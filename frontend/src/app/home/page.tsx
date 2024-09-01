@@ -81,7 +81,7 @@ function page() {
           <div className="flex flex-col">
             <Profile user={userId}/>
             <div className="flex flex-col justify-center items-center">
-              <h1 className="text-6xl text-third font-extrabold mb-8">Your Organizations</h1>
+              <h1 className="text-6xl text-third font-extrabold mb-16">Your Organizations</h1>
               <div className="flex flex-wrap ml-8 gap-x-10 gap-y-14 mt-10">
               {orgList.map((org, index) => (
                   <OrgCard
