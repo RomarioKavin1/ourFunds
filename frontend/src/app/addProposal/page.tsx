@@ -3,23 +3,27 @@ import BackgroundGradient from "@/components/BackgroundGradient";
 import { useState } from "react";
 import Profile from "@/components/Profile";
 
-const AddOrganization= () => { 
+const AddProposal= () => { 
   const [userId] = useState("a45321dsd5c1csc4d");   //For top right avatar
 
-  const [organizationName, setOrganizationName] = useState("");
-  const [organizationDescription, setOrganizationDescription] = useState("");
- //Add more state variables for additional form fields
+  
+  const [proposalName, setProposalName] = useState("");
+  const [proposalDescription, setProposalDescription] = useState("");
+  const [amount, setAmount] = useState("");
+  const [beneficiary, setBeneficiary] = useState(""); //Add more state variables for additional form fields
 
   const inputFields = [
-    { title: "Organization Name", stateValue: organizationName, setter: setOrganizationName, textArea: false },
-    { title: "Organization Description", stateValue: organizationDescription, setter: setOrganizationDescription, textArea: true },
+    { title: "Proposal Title", stateValue: proposalName, setter: setProposalName, textArea: false },
+    { title: "Proposal Description", stateValue: proposalDescription, setter: setProposalDescription, textArea: true },
+    { title: "Amount", stateValue: amount, setter: setAmount, textArea: false, eth: true },
+    { title: "Beneficiary", stateValue: beneficiary, setter: setBeneficiary, textArea: false },
     // Add more fields as needed 
   ];
 
   
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log({ organizationName, organizationDescription });
+    console.log({ proposalName, proposalDescription, amount,beneficiary });
   };
 
   return (
@@ -70,4 +74,4 @@ const AddOrganization= () => {
   );
 }
 
-export default AddOrganization;
+export default AddProposal;

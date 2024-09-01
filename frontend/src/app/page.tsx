@@ -7,23 +7,16 @@ import Kinto from "./assets/kinto.png";
 import XMTP from "./assets/xmtp.png";
 import W3Auth from "./assets/web3auth.png";
 import W3AuthBW from "./assets/web3authbw.png";
-import { Encode_Sans } from '@next/font/google';
 import BackgroundGradient from "@/components/BackgroundGradient";
 
-
-const encodeSans = Encode_Sans({
-  subsets: ['latin'], 
-  weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900'],
-});
 //TODO: Import other sponser images and add the objects to the sponsorImages array
 
-export default function page({ Component, pageProps }) {
+const page = () => {
   const router = useRouter();
 
   const sponsorImages = [Kinto, XMTP, W3Auth];
 
   return (
-  <div className={encodeSans.className}>
     <div className="flex flex-col h-screen">
       
       <BackgroundGradient /> 
@@ -60,6 +53,6 @@ export default function page({ Component, pageProps }) {
   
    
     </div>
-  </div>
   )}
 
+  export default page;
