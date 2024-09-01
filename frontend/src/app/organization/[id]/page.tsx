@@ -3,21 +3,22 @@ import { useParams } from "next/navigation";
 import BackgroundGradient from "@/components/BackgroundGradient";
 import Profile from "@/components/Profile";
 import { useState, useEffect } from "react";
-import { SiOwncloud } from "react-icons/si";
+import Proposal from "@/components/Proposal";
 
 const OrganizationDetail = () => {
-  const [userId, setUserId] = useState("a45321dsd5c1csc4d"); // For top right avatar
+  const [userId, setUserId] = useState("a45321dsd5c1csc4d");    //For top right avatar
   const [orgId, setOrgId] = useState(exampleOrgList[0].id);
   const [orgName, setOrgName] = useState(exampleOrgList[0].orgName);
   const [orgDescription, setOrgDescription] = useState(exampleOrgList[0].orgDescription);
+  const [proposals, setProposals] = useState(exampleOrgList[0].proposals);
+  //Organization Details Bound to change
   const [generalDetails, setGeneralDetails] = useState(exampleOrgList[0].generalDetails);
   const [creatorAddress, setCreatorAddress] = useState(exampleOrgList[0].creatorAddress);
   const [dateCreated, setDateCreated] = useState(exampleOrgList[0].dateCreated);
-  const [proposals, setProposals] = useState(exampleOrgList[0].proposals);
+  
+  
 
   const { id } = useParams();
-
-  
 
   return (
     <div>
@@ -42,7 +43,17 @@ const OrganizationDetail = () => {
             </div>
           </div>
           <h1 className="text-6xl text-fourth font-extrabold mb-8 z-10 mt-32">Proposals</h1>
-            
+          <div className="flex flex-col gap-y-3 mb-10">
+              {proposals.map((proposal) => (
+                  <Proposal
+                      key={proposal.id}
+                      id={proposal.id}
+                      title={proposal.title}
+                      creatorAddress={proposal.creatorAddress}
+                      status={proposal.status}
+                  />
+              ))}
+          </div>
         </div>
       </div>
     </div>
@@ -64,12 +75,12 @@ const exampleOrgList = [
       //Add more general details as needed
         
       proposals: [
-        { id: "1", title: "Proposal 1", creatorAddress: "08xasd155645dw", status: "Pending" },
-        { id: "2", title: "Proposal 2", creatorAddress: "09xsdadsdasdsd", status: "Approved" },
-        { id: "3", title: "Proposal 3", creatorAddress: "05xg54541z5451", status: "Rejected" },
-        { id: "4", title: "Proposal 4", creatorAddress: "08xasd155645dw", status: "Pending" },
-        { id: "5", title: "Proposal 5", creatorAddress: "09xsdadsdasdsd", status: "Approved" },
-        { id: "6", title: "Proposal 6", creatorAddress: "05xg54541z5451", status: "Rejected" },     
+        { id: "#1234", title: "Proposal 1", creatorAddress: "08xasd155645dw", status: "Vote Pending" },
+        { id: "#2845", title: "Proposal 2", creatorAddress: "09xsdadsdasdsd", status: "Approved" },
+        { id: "#3484", title: "Proposal 3", creatorAddress: "05xg54541z5451", status: "Rejected" },
+        { id: "#4551", title: "Proposal 4", creatorAddress: "08xasd155645dw", status: "Vote Pending" },
+        { id: "#9855", title: "Proposal 5", creatorAddress: "09xsdadsdasdsd", status: "Approved" },
+        { id: "#9526", title: "Proposal 6", creatorAddress: "05xg54541z5451", status: "Rejected" },     
       ]
     },
 ];
