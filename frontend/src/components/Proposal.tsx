@@ -22,7 +22,7 @@ const Proposal = ({ id, title, creatorAddress, status }) => {
         bg-[white]/[0.04] border-[white]/[0.08] hover:bg-[white]/[0.08]">
             <p className="w-24 ">{id}</p> 
             <p className="w-80 px-20">{title}</p> 
-            <p className="w-64 px-20">{creatorAddress}</p> 
+            <p className="w-64 pl-20">{creatorAddress}</p> 
             <div className="flex items-center justify-end gap-x-10 w-64"> 
                 <p className="mr-2">{status}</p>
                 <img src={getStatusIcon().src} alt={status} style={{ width: '24px', height: '24px' }} />

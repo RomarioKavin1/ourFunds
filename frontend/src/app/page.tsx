@@ -4,6 +4,7 @@ import Sponsor from "@/components/Sponser";
 import React from "react";
 import { useRouter } from 'next/navigation'
 import Kinto from "./assets/kinto.png";
+import KintoW from "./assets/kintoW.svg";
 import XMTP from "./assets/xmtp.png";
 import W3Auth from "./assets/web3auth.png";
 import W3AuthBW from "./assets/web3authbw.png";
@@ -35,8 +36,8 @@ const page = () => {
         <button className=" bg-[white]/[0.12] py-2 px-4 rounded-lg flex items-center mt-10 
           gap-4 border-[white]/[0.2] border transition-all hover:bg-[white]/[0.2]" 
           type="button" onClick={() => router.push('/home')}>
-          <img src={W3AuthBW.src} alt="Login using Web3Auth" className="w-8 h-8"/>
-          <p className="font-sans font-thin">Login with Web3Auth</p>
+          <img src={KintoW.src} alt="Login using Web3Auth" className="w-8 h-8"/>
+          <p className="font-sans font-thin">Login with Kinto</p>
         </button>
       </div>
   

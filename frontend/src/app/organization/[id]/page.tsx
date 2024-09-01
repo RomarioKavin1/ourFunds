@@ -58,7 +58,7 @@ const OrganizationDetail = () => {
 
           <div className="flex flex-col gap-y-3 mb-10 w-3/5">
               <div className="flex h-auto py-6 px-16 items-center w-auto max-w-3/5 rounded-[14px] z-10 
-              bg-[white]/[0.04] ">
+              bg-[white]/[0.01] ">
                   <p className="w-24 ">Proposal ID</p> 
                   <p className="w-80 px-20">Title</p> 
                   <p className="w-64 px-20">Creator</p> 

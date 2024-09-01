@@ -7,6 +7,7 @@ import OrgCard from "@/components/Orgcard";
 import BackgroundGradient from "@/components/BackgroundGradient";
 import Profile from "@/components/Profile";
 import { CiCirclePlus } from "react-icons/ci";
+import KintoW from "../assets/kintoW.svg";
 //TODO: Add random image/color generator for org cards 
 
 
@@ -24,52 +25,23 @@ const exampleOrgList = [{
 },
 { 
   id: "322357",
-  orgName: "Organization 3",
+  orgName: "Ethereum Foundation",
   orgDescription: "#322357",
-  generalDetails: "Details about the organization"
+  generalDetails: "Ethereum Foundation is a non-profit organization dedicated to supporting the Ethereum blockchain."
 },
 { 
   id: "322358",
-  orgName: "Organization 4",
+  orgName: "Blockchain Organization",
   orgDescription: "#322358",
-  generalDetails: "Details about the organization"
+  generalDetails: "Blockchain Organization is a community of blockchain developers and enthusiasts."
 },
 { 
   id: "322359",
-  orgName: "Organization 5",
+  orgName: "Stock Market Club",
   orgDescription: "#322359",
-  generalDetails: "Details about the organization"
+  generalDetails: "Stock Market Club is a community of stock market investors who share their insights and strategies."
 },
-{ 
-  id: "322360",
-  orgName: "Organization 6",
-  orgDescription: "#322360",
-  generalDetails: "Details about the organization"
-},
-{ 
-  id: "322361",
-  orgName: "Organization 7",
-  orgDescription: "#322361",
-  generalDetails: "Details about the organization"
-},
-{ 
-  id: "322362",
-  orgName: "Organization 8",
-  orgDescription: "#322362",
-  generalDetails: "Details about the organization"
-},
-{ 
-  id: "322363",
-  orgName: "Organization 9",
-  orgDescription: "#322363",
-  generalDetails: "Details about the organization"
-},
-{ 
-  id: "322364",
-  orgName: "Organization 10",
-  orgDescription: "#322364",
-  generalDetails: "Details about the organization"
-}]
+]
 
 function page() {
   const router = useRouter();
@@ -82,7 +54,7 @@ function page() {
         <BackgroundGradient />
         {/* Sidebar */}
         <aside className="w-3/5 max-w-md bg-inherit text-white rounded-2xl border border-white/10 m-4 p-4 sticky top-0 h-[calc(100vh-32px)] overflow-hidden">
-          <ul className="flex flex-col items-center font-light gap-y-8">
+          <ul className="flex flex-col items-center h-full font-light gap-y-8">
             <li className="mb-2 mt-16 w-11/12 py-5 text-center font-medium rounded-2xl">
               <button className="w-full py-5 rounded-2xl bg-[white]/[0.08] flex justify-center hover:bg-[white]/[0.2] 
               items-center gap-x-6" type="button" onClick={() => router.push('/addOrganization')}>
@@ -90,11 +62,18 @@ function page() {
                 <p>ADD ORGANIZATION</p>
               </button>
             </li>
-            <li className="mb-2">VIEW STATS</li>
-            <li className="mb-2">DELETE ORGANIZATION</li>
-            <li className="mb-2">VIEW GRAPHS</li>
-            <li className="mb-2">VIEW DATA</li>
+            <li className="mb-6">VIEW STATS</li>
+            <li className="mb-6">DELETE ORGANIZATION</li>
+            <li className="mb-6">VIEW GRAPHS</li>
+            <li className="mb-6">VIEW DATA</li>
+            <li className="mt-auto mb-10">
+              <div className="flex text-2xl  items-center gap-x-6 text-[white]/[0.75] font-bold">
+                <img src={KintoW.src} alt="" style={{ width: '22px', height: '22px' }}/>
+                <h1>Powered by Kinto</h1>
+              </div>
+            </li>
           </ul>
+          
         </aside>
 
         {/* Scrollable Content Section -right side*/}
