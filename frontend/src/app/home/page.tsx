@@ -1,12 +1,12 @@
 'use client'
 
 import React from "react";
-import { PiShieldPlusLight } from "react-icons/pi";
 import { useState } from "react";
 import { useRouter } from 'next/navigation'
 import OrgCard from "@/components/Orgcard";
 import BackgroundGradient from "@/components/BackgroundGradient";
 import Profile from "@/components/Profile";
+import { CiCirclePlus } from "react-icons/ci";
 //TODO: Add random image/color generator for org cards 
 
 
@@ -86,7 +86,7 @@ function page() {
             <li className="mb-2 mt-16 w-11/12 py-5 text-center font-medium rounded-2xl">
               <button className="w-full py-5 rounded-2xl bg-[white]/[0.08] flex justify-center hover:bg-[white]/[0.2] 
               items-center gap-x-6" type="button" onClick={() => router.push('/addOrganization')}>
-                <PiShieldPlusLight size={25} />
+                <CiCirclePlus size={25} />
                 <p>ADD ORGANIZATION</p>
               </button>
             </li>

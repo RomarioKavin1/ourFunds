@@ -2,6 +2,7 @@
 import BackgroundGradient from "@/components/BackgroundGradient";
 import { useState } from "react";
 import Profile from "@/components/Profile";
+import { useParams } from "next/navigation";
 
 const AddProposal= () => { 
   const [userId] = useState("a45321dsd5c1csc4d");   //For top right avatar
@@ -19,7 +20,7 @@ const AddProposal= () => {
     { title: "Beneficiary", stateValue: beneficiary, setter: setBeneficiary, textArea: false },
     // Add more fields as needed 
   ];
-
+  const { orgId } = useParams();
   
   const handleSubmit = (e) => {
     e.preventDefault();
