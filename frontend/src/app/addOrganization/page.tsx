@@ -1,4 +1,5 @@
 'use client'
+
 import BackgroundGradient from "@/components/BackgroundGradient";
 import { useState } from "react";
 import Profile from "@/components/Profile";
@@ -28,7 +29,7 @@ const AddOrganization= () => {
       <Profile user={userId}/>
       
       <div className="flex flex-col justify-center items-center">
-        <h1 className="text-6xl text-third z-10 font-extrabold mb-16">Create New Proposal</h1>
+        <h1 className="text-6xl text-third z-10 font-extrabold mb-16">Create New Organization</h1>
         <div className="border h-auto p-16 w-3/5 m-10 rounded-[20px] z-10 bg-[white]/[0.08] border-[white]/[0.12]">
             <form onSubmit={handleSubmit}>
 
