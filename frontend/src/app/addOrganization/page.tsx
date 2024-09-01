@@ -3,13 +3,17 @@
 import BackgroundGradient from "@/components/BackgroundGradient";
 import { useState } from "react";
 import Profile from "@/components/Profile";
+import { ToastContainer, toast } from 'react-toastify';
+import { useRouter} from 'next/navigation';
+import 'react-toastify/dist/ReactToastify.css';
 
-const AddOrganization= () => { 
-  const [userId] = useState("a45321dsd5c1csc4d");   //For top right avatar
+const AddOrganization = () => { 
+  const router = useRouter();
+  const [userId] = useState("a45321dsd5c1csc4d"); // For top right avatar
 
   const [organizationName, setOrganizationName] = useState("");
   const [organizationDescription, setOrganizationDescription] = useState("");
- //Add more state variables for additional form fields
+  // Add more state variables for additional form fields
 
   const inputFields = [
     { title: "Organization Name", stateValue: organizationName, setter: setOrganizationName, textArea: false },
@@ -17,22 +21,34 @@ const AddOrganization= () => {
     // Add more fields as needed 
   ];
 
-  
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log({ organizationName, organizationDescription });
+
+    // Customize toast message
+    toast.success("New Organization successfully created", {
+      position: "bottom-right", // Position of the toast
+      autoClose: 2000, // Duration in milliseconds
+      hideProgressBar: false, // Show progress bar
+      closeOnClick: true, // Close on click
+      pauseOnHover: true, // Pause on hover
+      draggable: true, // Allow dragging
+      progress: undefined, // Progress bar
+      theme: "dark", // Theme for the toast
+      onClose: () => router.push('/home'), 
+    });
+    
   };
 
   return (
     <div className="flex flex-col h-screen p-8 overflow-y-scroll scroll-smooth" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
       <BackgroundGradient />
-      <Profile user={userId}/>
-      
+      <Profile user={userId} />
+
       <div className="flex flex-col justify-center items-center">
         <h1 className="text-6xl text-third z-10 font-extrabold mb-16">Create New Organization</h1>
         <div className="border h-auto p-16 w-3/5 m-10 rounded-[20px] z-10 bg-[white]/[0.08] border-[white]/[0.12]">
             <form onSubmit={handleSubmit}>
-
                 {inputFields.map(({ title, stateValue, setter, textArea }, index) => (
                 <div key={index} className="mb-8">
                     <label className="block text-white text-2xl font-medium mb-6">{title}</label>
@@ -55,18 +71,20 @@ const AddOrganization= () => {
                     )}
                 </div>
                 ))}
-
                 <div className="flex justify-center">
                     <button
                         className="bg-[white]/[0.12] py-2 px-4 rounded-lg flex items-center mt-10 
                         gap-4 border-[white]/[0.2] border transition-all hover:bg-[white]/[0.2]"
                         type="submit">
-                        Create Proposal
+                        Create Organization
                     </button>
                 </div>
             </form>
         </div>
       </div>     
+
+      {/* ToastContainer should be included at the top level of your app */}
+      <ToastContainer />
     </div>
   );
 }

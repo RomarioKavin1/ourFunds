@@ -3,8 +3,13 @@ import BackgroundGradient from "@/components/BackgroundGradient";
 import { useState } from "react";
 import Profile from "@/components/Profile";
 import { useParams } from "next/navigation";
+import { ToastContainer,toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
+import { useRouter } from "next/navigation";
 
 const AddProposal= () => { 
+  const router = useRouter();
+
   const [userId] = useState("a45321dsd5c1csc4d");   //For top right avatar
 
   
@@ -25,6 +30,17 @@ const AddProposal= () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log({ proposalName, proposalDescription, amount,beneficiary });
+    toast.success("New Proposal successfully created", {
+      position: "bottom-right", // Position of the toast
+      autoClose: 2000, // Duration in milliseconds
+      hideProgressBar: false, // Show progress bar
+      closeOnClick: true, // Close on click
+      pauseOnHover: true, // Pause on hover
+      draggable: true, // Allow dragging
+      progress: undefined, // Progress bar
+      theme: "dark", // Theme for the toast
+      onClose: () => router.push(`/organization/${orgId}`),
+    });
   };
 
   return (
@@ -70,7 +86,8 @@ const AddProposal= () => {
                 </div>
             </form>
         </div>
-      </div>     
+      </div>  
+      <ToastContainer />   
     </div>
   );
 }
