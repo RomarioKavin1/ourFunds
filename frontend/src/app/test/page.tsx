@@ -3,6 +3,7 @@
 import { useRouter } from "next/navigation";
 import { createKintoSDK, KintoAccountInfo } from "kinto-web-sdk";
 import { useEffect, useState } from "react";
+import { fetchKYCViewerInfo } from "@/utils/kinto";
 
 export default function SignIn() {
   const appAddress = "0x14A1EC9b43c270a61cDD89B6CbdD985935D897fE";
@@ -28,12 +29,6 @@ export default function SignIn() {
     try {
       const accountInfo = await kintoSDK.createNewWallet();
       console.log("Connected account info:", accountInfo);
-      // const encodedAccountInfo = encodeURIComponent(
-      //   JSON.stringify(newAccountInfo.walletAddress)
-      // );
-      // const url = `/wallet?accountInfo=${encodedAccountInfo}`;
-      // console.log("Redirecting to:", url);
-      // router.push(url);
     } catch (error) {
       console.error("Failed to connect:", error);
     }
@@ -50,7 +45,10 @@ export default function SignIn() {
               Sign in using Kinto Wallet
             </button>
           ) : (
-            <div>{kintoAccount.walletAddress}</div>
+            <div>
+              {kintoAccount.walletAddress}
+              <div>{fetchKYCViewerInfo(kintoAccount)}</div>
+            </div>
           )}
         </div>
       </main>
