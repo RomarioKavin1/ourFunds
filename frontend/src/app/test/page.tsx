@@ -1,51 +1,55 @@
-// pages/connect.js
-import { useState } from "react";
+"use client";
+
+import { useRouter } from "next/navigation";
 import { createKintoSDK, KintoAccountInfo } from "kinto-web-sdk";
+import { useEffect, useState } from "react";
 
-const ConnectKintoWallet = () => {
-  const [accountInfo, setAccountInfo] = useState<null | KintoAccountInfo>(null);
-  const [error, setError] = useState<string | null>(null);
-
-  // Replace 'your-app-address' with your actual app address
-  const appAddress = "your-app-address";
+export default function SignIn() {
+  const appAddress = "0x14A1EC9b43c270a61cDD89B6CbdD985935D897fE";
+  if (!appAddress) {
+    throw new Error("NEXT_PUBLIC_KINTO_APP_ADDRESS is not defined");
+  }
   const kintoSDK = createKintoSDK(appAddress);
-
-  const connectWallet = async () => {
+  const router = useRouter();
+  const [kintoAccount, setKintoAccount] = useState<KintoAccountInfo>();
+  useEffect(() => {
+    kintoSDK
+      .connect()
+      .then((accountInfo: KintoAccountInfo) => {
+        console.log("Connected account info:", accountInfo);
+        setKintoAccount(accountInfo);
+      })
+      .catch((error: any) => {
+        console.error("Failed to connect:", error);
+      });
+  }, []);
+  const handleClick = async () => {
+    console.log("Button clicked");
     try {
-      const account = await kintoSDK.connect();
-      setAccountInfo(account);
-      setError(null);
-    } catch (err) {
-      setError("Failed to connect: " + (err as Error).message);
-      setAccountInfo(null);
+      const accountInfo = await kintoSDK.createNewWallet();
+      console.log("Connected account info:", accountInfo);
+      // const encodedAccountInfo = encodeURIComponent(
+      //   JSON.stringify(newAccountInfo.walletAddress)
+      // );
+      // const url = `/wallet?accountInfo=${encodedAccountInfo}`;
+      // console.log("Redirecting to:", url);
+      // router.push(url);
+    } catch (error) {
+      console.error("Failed to connect:", error);
     }
   };
-
   return (
-    <div style={{ padding: "20px" }}>
-      <h1>Connect to Kinto Wallet</h1>
-      <button
-        onClick={connectWallet}
-        style={{ padding: "10px", cursor: "pointer" }}
-      >
-        Connect Wallet
-      </button>
-
-      {accountInfo && (
-        <div style={{ marginTop: "20px" }}>
-          <h2>Connected Account Info:</h2>
-          <pre>{JSON.stringify(accountInfo, null, 2)}</pre>
+    <div className="min-h-screen flex flex-col">
+      <main className="flex-grow container mx-auto px-4 py-8">
+        <div className="max-w-md mx-auto">
+          <button
+            className="bg-blue-500 text-white font-bold py-2 px-4 rounded hover:bg-blue-700"
+            onClick={handleClick}
+          >
+            Sign in using Kinto Wallet
+          </button>
         </div>
-      )}
-
-      {error && (
-        <div style={{ marginTop: "20px", color: "red" }}>
-          <h2>Error:</h2>
-          <p>{error}</p>
-        </div>
-      )}
+      </main>
     </div>
   );
-};
-
-export default ConnectKintoWallet;
+}
