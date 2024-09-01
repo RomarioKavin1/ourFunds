@@ -1,29 +1,31 @@
 import React from 'react';
-import { Encode_Sans } from "next/font/google";
+import { useRouter } from 'next/navigation';
 
-const encodeSans = Encode_Sans({
-    subsets: ['latin'], 
-    weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900'],
-  });
+const OrgCard: React.FC<OrgCardProps> = ({ id, orgName, orgDescription, generalDetails }) => {
+  const router = useRouter();
 
-const OrgCard: React.FC<OrgCardProps> = ({ orgName, orgDescription, generalDetails }) => {
+  const handleClick = () => {
+    router.push(`/organization/${id}`);
+  };
+
   return (
-    <div className={encodeSans.className}>
-        <div className="flex flex-col w-96 h-72 bg-[white]/[0.08] border border-[white]/[0.12] transition-all
-         hover:bg-[white]/[0.2] rounded-[28px] backdrop-blur-[150px] shadow-lg p-10">
-          <h1 className='font-semibold text-3xl'>{orgName}</h1>
-          <p className='font-normal mt-6'>{orgDescription}</p>
-          <p className='font-thin mt-7'>{generalDetails}</p>
-        </div>
+    <div
+      onClick={handleClick}
+      className="cursor-pointer flex flex-col w-96 h-auto bg-[white]/[0.04] border border-[white]/[0.06] transition
+        hover:bg-[white]/[0.2] rounded-[28px] backdrop-blur-[150px] shadow-lg p-14 drop-shadow-2xl"
+    >
+      <h1 className='font-semibold text-3xl'>{orgName}</h1>
+      <p className='font-normal mt-4'>{orgDescription}</p>
+      <p className='font-thin mt-6'>{generalDetails}</p>
     </div>
   );
 };
 
-export default OrgCard; 
-
+export default OrgCard;
 
 interface OrgCardProps {
-    orgName: string;
-    orgDescription: string;
-    generalDetails: string;
-  }
+  id: string;
+  orgName: string;
+  orgDescription: string;
+  generalDetails: string;
+}

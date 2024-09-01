@@ -4,60 +4,70 @@ import React from "react";
 import { PiShieldPlusLight } from "react-icons/pi";
 import { useState } from "react";
 import { useRouter } from 'next/navigation'
-import OrgCard from "@/components/OrgCard";
+import OrgCard from "@/components/Orgcard";
 import BackgroundGradient from "@/components/BackgroundGradient";
 import Profile from "@/components/Profile";
 //TODO: Add random image/color generator for org cards 
 
 
 const exampleOrgList = [{
-  orgName: "Organization 1",
-  orgDescription: "This is the first organization",
-  generalDetails: "Details about the organization"
+  id: "322344",
+  orgName: "NFT Hub Organization",
+  orgDescription: "#322344",
+  generalDetails: "NFT Hub is a platform for NFT enthusiasts to share their collections and connect with other collectors."
 },
-{
-  orgName: "Organization 2",
-  orgDescription: "This is the second organization",
-  generalDetails: "Details about the organization"
+{ 
+  id: "322356",
+  orgName: "Crypto Club",
+  orgDescription: "#322356",
+  generalDetails: "Crypto Club is a community of crypto enthusiasts who share their knowledge and insights about the crypto world."
 },
-{
+{ 
+  id: "322357",
   orgName: "Organization 3",
-  orgDescription: "This is the third organization",
+  orgDescription: "#322357",
   generalDetails: "Details about the organization"
 },
-{
+{ 
+  id: "322358",
   orgName: "Organization 4",
-  orgDescription: "This is the fourth organization",
+  orgDescription: "#322358",
   generalDetails: "Details about the organization"
 },
-{
+{ 
+  id: "322359",
   orgName: "Organization 5",
-  orgDescription: "This is the fifth organization",
+  orgDescription: "#322359",
   generalDetails: "Details about the organization"
 },
-{
+{ 
+  id: "322360",
   orgName: "Organization 6",
-  orgDescription: "This is the sixth organization",
+  orgDescription: "#322360",
   generalDetails: "Details about the organization"
 },
-{
+{ 
+  id: "322361",
   orgName: "Organization 7",
-  orgDescription: "This is the seventh organization",
+  orgDescription: "#322361",
   generalDetails: "Details about the organization"
 },
-{
+{ 
+  id: "322362",
   orgName: "Organization 8",
-  orgDescription: "This is the eighth organization",
+  orgDescription: "#322362",
   generalDetails: "Details about the organization"
 },
-{
+{ 
+  id: "322363",
   orgName: "Organization 9",
-  orgDescription: "This is the ninth organization",
+  orgDescription: "#322363",
   generalDetails: "Details about the organization"
 },
-{
+{ 
+  id: "322364",
   orgName: "Organization 10",
-  orgDescription: "This is the tenth organization",
+  orgDescription: "#322364",
   generalDetails: "Details about the organization"
 }]
 
@@ -91,16 +101,19 @@ function page() {
         <main className="flex-grow z-10 h-full overflow-y-scroll scroll-smooth p-8 bg-inherit " style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>         
           <div className="flex flex-col">
             <Profile user={userId}/>
-            <h1 className="text-6xl text-third font-extrabold mb-8">Your Organizations</h1>
-            <div className="flex flex-wrap ml-8 gap-x-10 gap-y-8 mt-10">
-            {orgList.map((org, index) => (
-                <OrgCard
-                  key={index}
-                  orgName={org.orgName}
-                  orgDescription={org.orgDescription}
-                  generalDetails={org.generalDetails}
-                />
-              ))}
+            <div className="flex flex-col justify-center items-center">
+              <h1 className="text-6xl text-third font-extrabold mb-8">Your Organizations</h1>
+              <div className="flex flex-wrap ml-8 gap-x-10 gap-y-14 mt-10">
+              {orgList.map((org, index) => (
+                  <OrgCard
+                    key={index}
+                    id={org.id}
+                    orgName={org.orgName}
+                    orgDescription={org.orgDescription}
+                    generalDetails={org.generalDetails}
+                  />
+                ))}
+              </div>
             </div>
           </div>
         </main>
