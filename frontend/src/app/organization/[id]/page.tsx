@@ -52,7 +52,7 @@ const OrganizationDetail = () => {
                 Proposals
               </h1>
               <button className="w-96 py-5 px-6 rounded-xl bg-[white]/[0.04] flex justify-center hover:bg-[white]/[0.08] 
-                items-center gap-x-6 border border-[white]/[0.08]" type="button" onClick={() => router.push(`/addProposal/${orgId}`)}>
+                items-center gap-x-6 border border-[white]/[0.08]" type="button" onClick={() => router.push(`/organization/addProposal?orgId=${orgId}`)}>
                   <CiCirclePlus size={25} />
                   <p className="text-sm">CREATE PROPOSAL</p>
                 </button>
