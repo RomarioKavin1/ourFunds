@@ -1,85 +1,142 @@
-import {
-  SignProtocolClient,
-  SpMode,
-  EvmChains,
-  delegateSignAttestation,
-  delegateSignRevokeAttestation,
-  delegateSignSchema,
-} from "@ethsign/sp-sdk";
-import { privateKeyToAccount } from "viem/accounts";
-const privateKey = "0xabc"; // Optional
+"use client";
 
-const client = new SignProtocolClient(SpMode.OnChain, {
-  chain: EvmChains.polygonMumbai,
-  account: privateKeyToAccount(privateKey), // Optional if you are using an injected provider
+import React, { useState } from "react";
+import { SignProtocolClient, SpMode, OffChainSignType } from "@ethsign/sp-sdk";
+import { privateKeyToAccount, Account } from "viem/accounts";
+const privateKey =
+  `0x${process.env.NEXT_PUBLIC_PVT_KEY || "abc"}` as `0x${string}`;
+const account = privateKeyToAccount(privateKey);
+
+// Initialize SignProtocolClient in Off-Chain mode
+const client = new SignProtocolClient(SpMode.OffChain, {
+  signType: OffChainSignType.EvmEip712,
+  account,
 });
 
-// Create schema
-const createSchemaRes = await client.createSchema({
-  name: "xxx",
-  data: [{ name: "name", type: "string" }],
-});
+const SignProtocolPage = () => {
+  const [schemaInfo, setSchemaInfo] = useState<any>(null);
+  const [attestationInfo, setAttestationInfo] = useState<any>(null);
+  const [revokeResponse, setRevokeResponse] = useState<any>(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const handleCreateSchema = async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      const schema = await client.createSchema({
+        name: "User Verification",
+        data: [{ name: "name", type: "string" }],
+      });
+      setSchemaInfo(schema);
+      console.log("Schema created:", schema);
+    } catch (err) {
+      setError("Failed to create schema");
+      console.error("Error creating schema:", err);
+    } finally {
+      setLoading(false);
+    }
+  };
 
-// Delegated create schema
-const delegationPrivateKey = "0xaaaaa";
-const info = await delegateSignSchema(
-  {
-    name: "xxx",
-    data: [{ name: "name", type: "string" }],
-  },
-  {
-    chain: EvmChains.polygonMumbai,
-    delegationAccount: privateKeyToAccount(delegationPrivateKey),
-  }
-);
-const delegateCreateSchemaRes = await client.createSchema(info.schema, {
-  delegationSignature: info.delegationSignature,
-});
+  // Function to create an attestation
+  const handleCreateAttestation = async () => {
+    if (!schemaInfo) {
+      setError("Create a schema first");
+      return;
+    }
+    setLoading(true);
+    setError(null);
+    try {
+      const attestation = await client.createAttestation({
+        schemaId: schemaInfo.schemaId, // Use the schema ID from the created schema
+        data: { name: "Alice" }, // Data to be attested according to the schema
+        indexingValue: "unique-index", // Unique value for indexing purposes
+      });
+      setAttestationInfo(attestation);
+      console.log("Attestation created:", attestation);
+    } catch (err) {
+      setError("Failed to create attestation");
+      console.error("Error creating attestation:", err);
+    } finally {
+      setLoading(false);
+    }
+  };
 
-// Create attestation
-const createAttestationRes = await client.createAttestation({
-  schemaId: "0x3",
-  data: { name: "a" },
-  indexingValue: "xxx",
-});
+  // Function to revoke an attestation
+  const handleRevokeAttestation = async () => {
+    if (!attestationInfo) {
+      setError("Create an attestation first");
+      return;
+    }
+    setLoading(true);
+    setError(null);
+    try {
+      const response = await client.revokeAttestation(
+        attestationInfo.attestationId,
+        {
+          reason: "Incorrect data provided", // Reason for revocation
+        }
+      );
+      setRevokeResponse(response);
+      console.log("Attestation revoked:", response);
+    } catch (err) {
+      setError("Failed to revoke attestation");
+      console.error("Error revoking attestation:", err);
+    } finally {
+      setLoading(false);
+    }
+  };
 
-// Delegated create attestation
-const delegationPrivateKey = "0xaaaaa";
-const info = await delegateSignAttestation(
-  {
-    schemaId: "0x1",
-    data: { name: "a" },
-    indexingValue: "xxx",
-  },
-  {
-    chain: EvmChains.polygonMumbai,
-    delegationAccount: privateKeyToAccount(delegationPrivateKey),
-  }
-);
+  return (
+    <div className="min-h-screen flex flex-col items-center justify-center">
+      <h1 className="text-2xl font-bold mb-4">
+        Sign Protocol Off-Chain (Arweave) Demo
+      </h1>
+      {loading && <p>Loading...</p>}
+      {error && <p className="text-red-500">{error}</p>}
 
-const delegationCreateAttestationRes = await client.createAttestation(
-  info.attestation,
-  {
-    delegationSignature: info.delegationSignature,
-  }
-);
+      <button
+        className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700 mt-4"
+        onClick={handleCreateSchema}
+        disabled={loading}
+      >
+        Create Schema
+      </button>
 
-// Revoke attestation
-const revokeAttestationRes = await client.revokeAttestation("0x3", {
-  reason: "test",
-});
+      {schemaInfo && (
+        <div className="mt-4">
+          <p>Schema ID: {schemaInfo.schemaId}</p>
+        </div>
+      )}
 
-// Delegated revoke attestation
-const delegationPrivateKey = "0xaaaaa";
-const info = await delegateSignRevokeAttestation(attestationId, {
-  chain: EvmChains.polygonMumbai,
-  reason: "test",
-  delegationAccount: privateKeyToAccount(delegationPrivateKey),
-});
-const delegationRevokeAttestationRes = await client.revokeAttestation(
-  info.attestationId,
-  {
-    reason: info.reason,
-    delegationSignature: info.delegationSignature,
-  }
-);
+      <button
+        className="bg-green-500 text-white py-2 px-4 rounded hover:bg-green-700 mt-4"
+        onClick={handleCreateAttestation}
+        disabled={loading || !schemaInfo}
+      >
+        Create Attestation
+      </button>
+
+      {attestationInfo && (
+        <div className="mt-4">
+          <p>Attestation ID: {attestationInfo.attestationId}</p>
+        </div>
+      )}
+
+      <button
+        className="bg-red-500 text-white py-2 px-4 rounded hover:bg-red-700 mt-4"
+        onClick={handleRevokeAttestation}
+        disabled={loading || !attestationInfo}
+      >
+        Revoke Attestation
+      </button>
+
+      {revokeResponse && (
+        <div className="mt-4">
+          <p>Revocation Successful: {JSON.stringify(revokeResponse)}</p>
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default SignProtocolPage;
