@@ -15,7 +15,7 @@ const OrgCard: React.FC<OrgCardProps> = ({ id, orgName, orgDescription, generalD
   const router = useRouter();
 
   const handleClick = () => {
-    router.push(`/organization/${id}`);
+    router.push(`/organization?orgid=${id}`);
   };
 
   return (

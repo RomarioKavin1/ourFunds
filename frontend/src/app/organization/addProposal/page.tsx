@@ -2,7 +2,7 @@
 import BackgroundGradient from "@/components/BackgroundGradient";
 import { useState } from "react";
 import Profile from "@/components/Profile";
-import { useParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { ToastContainer,toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import { useRouter } from "next/navigation";
@@ -25,7 +25,9 @@ const AddProposal= () => {
     { title: "Beneficiary", stateValue: beneficiary, setter: setBeneficiary, textArea: false },
     // Add more fields as needed 
   ];
-  const { orgId } = useParams();
+
+  const searchParams = useSearchParams();
+  const orgId = searchParams.get('orgid');
   
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -39,7 +41,7 @@ const AddProposal= () => {
       draggable: true, // Allow dragging
       progress: undefined, // Progress bar
       theme: "dark", // Theme for the toast
-      onClose: () => router.push(`/organization/${orgId}`),
+      onClose: () => router.push(`/organization?orgid=${orgId}`),
     });
   };
 

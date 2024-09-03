@@ -1,5 +1,5 @@
 'use client';
-import { useParams } from "next/navigation";
+import { useParams, useSearchParams } from "next/navigation";
 import BackgroundGradient from "@/components/BackgroundGradient";
 import Profile from "@/components/Profile";
 import { useState, useEffect } from "react";
@@ -21,8 +21,9 @@ const OrganizationDetail = () => {
 
   const [isLoading, setIsLoading] = useState(false);   //Loading state
   
-  const { id } = useParams();
-
+  const searchParams = useSearchParams();
+  const orgid = searchParams.get('orgid');
+  
   return (
       <div>
         <BackgroundGradient />
@@ -52,7 +53,7 @@ const OrganizationDetail = () => {
                 Proposals
               </h1>
               <button className="w-96 py-5 px-6 rounded-xl bg-[white]/[0.04] flex justify-center hover:bg-[white]/[0.08] 
-                items-center gap-x-6 border border-[white]/[0.08]" type="button" onClick={() => router.push(`/organization/addProposal?orgId=${orgId}`)}>
+                items-center gap-x-6 border border-[white]/[0.08]" type="button" onClick={() => router.push(`/organization/addproposal?orgid=${orgId}`)}>
                   <CiCirclePlus size={25} />
                   <p className="text-sm">CREATE PROPOSAL</p>
                 </button>
@@ -73,6 +74,7 @@ const OrganizationDetail = () => {
               {proposals.map((proposal) => (
                 <Proposal
                   key={proposal.id}
+                  orgid={orgId}
                   id={proposal.id}
                   title={proposal.title}
                   creatorAddress={proposal.creatorAddress}
@@ -97,12 +99,12 @@ const exampleOrgList = [
     creatorAddress: "0x1234567890",
     dateCreated: "2022-01-01",
     proposals: [
-      { id: "#1234", title: "Proposal 1", creatorAddress: "08xasd155645dw", status: "Vote Pending" },
-      { id: "#2845", title: "Proposal 2", creatorAddress: "09xsdadsdasdsd", status: "Approved" },
-      { id: "#3484", title: "Proposal 3", creatorAddress: "05xg54541z5451", status: "Rejected" },
-      { id: "#4551", title: "Proposal 4", creatorAddress: "08xasd155645dw", status: "Vote Pending" },
-      { id: "#9855", title: "Proposal 5", creatorAddress: "09xsdadsdasdsd", status: "Approved" },
-      { id: "#9526", title: "Proposal 6", creatorAddress: "05xg54541z5451", status: "Rejected" },     
+      { id: "1234", title: "Proposal 1", creatorAddress: "08xasd155645dw", status: "Vote Pending" },
+      { id: "2845", title: "Proposal 2", creatorAddress: "09xsdadsdasdsd", status: "Approved" },
+      { id: "3484", title: "Proposal 3", creatorAddress: "05xg54541z5451", status: "Rejected" },
+      { id: "4551", title: "Proposal 4", creatorAddress: "08xasd155645dw", status: "Vote Pending" },
+      { id: "9855", title: "Proposal 5", creatorAddress: "09xsdadsdasdsd", status: "Approved" },
+      { id: "9526", title: "Proposal 6", creatorAddress: "05xg54541z5451", status: "Rejected" },     
     ]
   },
 ];
