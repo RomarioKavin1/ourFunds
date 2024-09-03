@@ -60,7 +60,7 @@ const OrganizationDetail = () => {
             </div>
             
       
-            <div className="flex flex-col gap-y-3 mb-10 w-3/5">
+            <div className="flex flex-col gap-y-3 z-10 mb-10 w-3/5">
                 <div className="flex h-auto py-6 px-16 items-center w-auto max-w-3/5 rounded-[14px] z-10 
                 bg-[white]/[0.01] ">
                     <p className="w-24 ">Proposal ID</p> 
