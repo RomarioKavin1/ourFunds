@@ -22,13 +22,13 @@ const OrgCard: React.FC<OrgCardProps> = ({ id, orgName, orgDescription, generalD
     <div
       onClick={handleClick}
       className="relative cursor-pointer flex flex-col w-96 h-auto bg-[white]/[0.04] border border-[white]/[0.06] transition
-        hover:bg-[white]/[0.2] rounded-[28px] backdrop-blur-[150px] shadow-lg p-14 drop-shadow-2xl"
+        hover:bg-[white]/[0.2]  shadow-lg  drop-shadow-2xl p-14 rounded-[28px]"
     >
       {/* Sequential Image */}
       <img
         src={images[imageIndex % images.length]}
         alt="Random"
-        className="absolute -top-5 -right-5 w-16 h-16 object-contain"
+        className="absolute -top-5 -right-5 w-20 h-20 object-contain "
       />
       
       <h1 className='font-semibold text-3xl'>{orgName}</h1>
@@ -42,7 +42,7 @@ export default OrgCard;
 
 interface OrgCardProps {
   id: string;
-  orgName: string;
+  orgName: string; 
   orgDescription: string;
   generalDetails: string;
   imageIndex: number; 

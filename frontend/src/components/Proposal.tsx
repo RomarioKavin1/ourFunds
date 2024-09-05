@@ -22,8 +22,9 @@ const Proposal = ({ orgid, id, title, creatorAddress, status }) => {
 
     return (
         <button onClick={() => router.push(`/organization/proposal?orgid=${orgid}&proposalid=${id}`)}>
-            <div className="border flex h-auto py-6 px-16 items-center w-auto max-w-3/5 rounded-[14px] z-10 
-            bg-[white]/[0.04] border-[white]/[0.08] hover:bg-[white]/[0.08]">
+            <div className=" flex h-auto py-6 px-16 items-center w-auto max-w-3/5 rounded-[14px] z-10 
+            bg-[white]/[0.04] border border-[white]/[0.06] transition
+        hover:bg-[white]/[0.2]  shadow-lg  drop-shadow-2xl">
                 <p className="w-24 ">{id}</p> 
                 <p className="w-80 px-20">{title}</p> 
                 <p className="w-64 pl-20">{creatorAddress}</p> 

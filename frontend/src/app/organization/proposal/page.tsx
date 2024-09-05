@@ -48,6 +48,16 @@ const ProposalDetail = () => {
                 </div>
               </div>
             </div>
+            <div className="flex flex-row  items-baseline mt-24 w-3/5 justify-center">
+              <h1 className="text-6xl text-fourth font-extrabold mb-8 z-10 text-center w-full">
+                Vote
+              </h1>
+            </div>
+            
+            <div className="border flex flex-col h-auto p-16 w-3/5 gap-y-8 rounded-[20px] z-10 bg-[white]/[0.04] border-[white]/[0.08]">
+            </div>
+      
+            
           </div> )}
         </div>
       </div>
