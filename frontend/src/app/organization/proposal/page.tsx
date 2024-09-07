@@ -7,6 +7,11 @@ import Proposal from "@/components/Proposal";
 import { CiCirclePlus } from "react-icons/ci";
 import { useRouter } from "next/navigation";
 import Loader from "@/components/Loader";
+import CastVote from '../../assets/castvote.svg';
+import { Modal, Box, Slider, Typography, Button } from "@mui/material";
+import { useSearchParams } from "next/navigation";
+
+
 
 const ProposalDetail = () => {
     const router = useRouter();
@@ -19,10 +24,34 @@ const ProposalDetail = () => {
     const [proposalStatus, setProposalStatus] = useState(exampleProposal.status);
     const [proposalNoOfStackHolders, setProposalNoOfStackHolders] = useState(exampleProposal.noOfStackHolders);
 
+    const [isModalOpen, setIsModalOpen] = useState(false);   // State to handle modal visibility
+  const [sliderValue, setSliderValue] = useState(50);      // Default value for slider
+  const [submittedValue, setSubmittedValue] = useState<number | null>(null); // Submitted value state
 
-  const [isLoading, setIsLoading] = useState(false);   //Loading state
-  
-  const { id } = useParams();
+  const [isLoading, setIsLoading] = useState(false); 
+
+  const searchParams = useSearchParams();
+  const proposalid = searchParams.get('proposalid');
+  const orgid = searchParams.get('orgid');
+
+  const handleClick = () => {
+    setIsModalOpen(true); // Open modal on click
+  };
+
+  const handleSliderChange = (event: Event, newValue: number | number[]) => {
+    setSliderValue(newValue as number); // Update slider value as user changes it
+  };
+
+  const handleSubmit = () => {
+    setSubmittedValue(sliderValue);    // Set the state to slider value
+    setIsModalOpen(false);             // Close modal
+    console.log("Submitted vote:", sliderValue);  // Print value to console
+    setTimeout(() => {
+      router.push(`/organization?orgid=${orgid}`);
+    }, 2000);
+
+  };
+
 
   return (
       <div>
@@ -52,12 +81,89 @@ const ProposalDetail = () => {
               <h1 className="text-6xl text-fourth font-extrabold mb-8 z-10 text-center w-full">
                 Vote
               </h1>
+            </div>   
+            <div className="border flex flex-col justify-center items-center h-auto p-52 w-3/5 gap-y-24 rounded-[20px] 
+            z-10 bg-[white]/[0.04] hover:bg-[white]/[0.08] border-[white]/[0.08]" onClick={handleClick}>
+              <p className="w-3/ text-lg text-center">It seems that you have not voted yet, cast your vote for the proposal which will be aggregated with votes for other stakeholders </p>
+              <img src={CastVote.src} style={{ width: '100px', height: '100px' }} alt="" />
             </div>
-            
-            <div className="border flex flex-col h-auto p-16 w-3/5 gap-y-8 rounded-[20px] z-10 bg-[white]/[0.04] border-[white]/[0.08]">
-            </div>
-      
-            
+<Modal
+        open={isModalOpen}
+        onClose={() => setIsModalOpen(false)} // Close modal when clicked outside
+        aria-labelledby="vote-modal-title"
+        aria-describedby="vote-modal-description"
+      >
+        <Box
+          className="flex flex-col justify-center items-center gap-6 gap-y-12 p-10 rounded-lg"
+          sx={{
+            bgcolor: 'rgba(255, 255, 255, 0.04)', // Semi-transparent white for a subtle background
+            border: '1px solid rgba(255, 255, 255, 0.08)', // Light border matching previous sections
+            boxShadow: 24,
+            maxWidth: 400,
+            margin: 'auto',
+            mt: 8,
+            p: 4,
+            borderRadius: "20px", // Rounded corners for consistency
+            backdropFilter: "blur(10px)", // Blurred background for a glassmorphism effect
+            textAlign: "center",
+            color: "rgba(255, 255, 255, 0.9)", // Light text for consistency
+          }}
+        >
+          <Typography
+            id="vote-modal-title"
+            variant="h6"
+            component="h2"
+          >
+            Cast Your Vote
+          </Typography>
+
+          {/* Slider component */}
+          <Slider
+            value={sliderValue}
+            onChange={handleSliderChange}
+            aria-labelledby="continuous-slider"
+            step={1}
+            marks
+            min={0}
+            max={100}
+            valueLabelDisplay="auto"
+            valueLabelFormat={(value) => `${value}%`} // Display values as percentages
+            sx={{
+              width: "100%", // Full width for the slider
+              color: "#34D399", // Accent color for the slider
+              "& .MuiSlider-thumb": {
+                backgroundColor: "#fff", // White thumb for contrast
+              },
+              "& .MuiSlider-rail": {
+                opacity: 0.28,
+              },
+            }}
+          />
+
+          {/* Labels for Reject and Approve */}
+          <div className="flex justify-between w-full text-lg">
+            <Typography sx={{ color: "#EF4444" }}>Reject</Typography>
+            <Typography sx={{ color: "#10B981" }}>Approve</Typography>
+          </div>
+
+          {/* Submit button */}
+          <Button
+            variant="contained"
+            onClick={handleSubmit}
+            className="mt-6 px-6 py-2 rounded-lg font-bold"
+            sx={{
+              backgroundColor: "rgba(255, 255, 255, 0.08)", // Semi-transparent button for consistency
+              color: "#F4F4F9",
+              "&:hover": {
+                backgroundColor: "rgba(255, 255, 255, 0.12)", // Slightly darker on hover
+              },
+            }}
+          >
+            Submit
+          </Button>
+        </Box>
+      </Modal>
+
           </div> )}
         </div>
       </div>
