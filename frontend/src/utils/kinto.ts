@@ -5,51 +5,40 @@ import {
   http,
   Address,
   defineChain,
+  encodeFunctionData,
 } from "viem"; // Ensure these imports are correct and 'viem' is installed
 import contractsJSON from "../../public/abis/7887.json"; // Adjust the path to your contracts JSON file
-export async function fetchFromContract(
-  kintoSDK: any,
-  contractAddress: string,
-  abi: string,
-  functionName: string,
-  params: any[]
-) {
-  try {
-    const contract = kintoSDK.contract({
-      address: contractAddress,
-      abi: JSON.parse(abi),
-    });
-    const data = await contract.read({ method: functionName, args: params });
-    return data;
-  } catch (error) {
-    console.error("Error fetching from contract:", error);
-    throw error;
-  }
+import { FactoryABI, FactoryAddress } from "./abi";
+export async function fetchOrgs() {
+  const client = createPublicClient({
+    chain: kintoChain,
+    transport: http(),
+  });
+  const contract = getContract({
+    address: FactoryAddress as Address,
+    abi: FactoryABI,
+    client: { public: client },
+  });
+  const data = await contract.read.getOrganizations([]);
+  return data;
 }
-export async function writeToContract(
+
+export async function createOrganization(
   kintoSDK: any,
-  contractAddress: string,
-  abi: string,
-  functionName: string,
-  params: any[],
-  senderAddress: string,
-  privateKey: string
+  OrgName: string,
+  SharePrice: number
 ) {
+  const data = encodeFunctionData({
+    abi: FactoryABI,
+    functionName: "createOrganization",
+    args: [OrgName, SharePrice],
+  });
   try {
-    const contract = kintoSDK.contract({
-      address: contractAddress,
-      abi: JSON.parse(abi),
-    });
-    const result = await contract.write({
-      method: functionName,
-      args: params,
-      sender: senderAddress,
-      privateKey: privateKey,
-    });
-    return result;
+    const response = await kintoSDK.sendTransaction([
+      { to: FactoryAddress, data, value: BigInt(0) },
+    ]);
   } catch (error) {
-    console.error("Error writing to contract:", error);
-    throw error;
+    console.error("Failed to login/signup:", error);
   }
 }
 export const kintoChain = defineChain({
