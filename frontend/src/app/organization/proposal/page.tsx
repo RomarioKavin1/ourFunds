@@ -10,6 +10,7 @@ import Loader from "@/components/Loader";
 import CastVote from '../../assets/castvote.svg';
 import CheckMark from '../../assets/checkmark.svg';
 import Cancel from '../../assets/cancel.svg';
+import Waiting from '../../assets/Hourglass.svg';
 import { Modal, Box, Slider, Typography, Button } from "@mui/material";
 import { useSearchParams } from "next/navigation";
 
@@ -64,7 +65,7 @@ const ProposalDetail = () => {
             case "Approved":
                 return (
                     <div className="border flex flex-col justify-center items-center h-auto p-52 w-3/5 gap-y-24 rounded-[20px] 
-                    z-10 bg-[white]/[0.04] hover:bg-[white]/[0.08] border-[white]/[0.08]" onClick={handleClick}>
+                    z-10 bg-[white]/[0.04] hover:bg-[white]/[0.08] border-[white]/[0.08]">
                         <p className="w-3/ text-lg text-center">The proposal has been approved. Thank you for your vote!</p>
                         <img src={CheckMark.src} style={{ width: '100px', height: '100px' }} alt="Approved" />
                     </div>
@@ -72,9 +73,17 @@ const ProposalDetail = () => {
             case "Rejected":
                 return (
                     <div className="border flex flex-col justify-center items-center h-auto p-52 w-3/5 gap-y-24 rounded-[20px] 
-                    z-10 bg-[white]/[0.04] hover:bg-[white]/[0.08] border-[white]/[0.08]" onClick={handleClick}>
+                    z-10 bg-[white]/[0.04] hover:bg-[white]/[0.08] border-[white]/[0.08]">
                         <p className="w-3/ text-lg text-center">The proposal has been rejected. Thank you for your vote!</p>
                         <img src={Cancel.src} style={{ width: '100px', height: '100px' }} alt="Rejected" />
+                    </div>
+                );
+              case "Waiting":
+                return (
+                    <div className="border flex flex-col justify-center items-center h-auto p-52 w-3/5 gap-y-24 rounded-[20px] 
+                    z-10 bg-[white]/[0.04] hover:bg-[white]/[0.08] border-[white]/[0.08]">
+                        <p className="w-3/ text-lg text-center">Waiting for the votes of other stackholders. Please check back later.</p>
+                        <img src={Waiting.src} style={{ width: '100px', height: '100px' }} alt="Waiting" />
                     </div>
                 );
             default:
@@ -190,7 +199,7 @@ const exampleProposal = {
   description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ea ratione laboriosam, aliquid ipsam dolorem omnis minus velit reiciendis quisquam asperiores modi totam aliquam? Ducimus in voluptas doloremque esse quisquam natus quia eaque! Necessitatibus similique dolorum quidem consectetur nobis ab? Aspernatur dolor adipisci quis fuga expedita maxime ratione laborum iste animi perferendis iusto consequatur esse debitis accusamus impedit deserunt, qui vero veritatis aperiam officiis! Itaque repellendus qui quas magni voluptatum nostrum praesentium porro error cupiditate asperiores, vitae doloribus excepturi quis voluptatem ratione, pariatur officiis natus? Eveniet illo neque, necessitatibus assumenda error sint ut recusandae, consequuntur ex deleniti veritatis ipsum consequatur. Sunt.",
   creatorAddress: "0x1234567890",
   dateCreated: "2022-01-01",
-  status: "Vote Pending", // Change this to "Approved" or "Rejected" to see different status content
+  status: "Waiting", // Change this to "Approved" or "Rejected" to see different status content
   noOfStackHolders: "15",
   };
 
