@@ -14,7 +14,7 @@ type KYCViewerInfo = {
 };
 
 export default function SignIn() {
-  const appAddress = "0x14A1EC9b43c270a61cDD89B6CbdD985935D897fE";
+  const appAddress = "0x2F10715B3439a8606eF3f7a2e6927ea2da735C67";
   if (!appAddress) {
     throw new Error("NEXT_PUBLIC_KINTO_APP_ADDRESS is not defined");
   }
