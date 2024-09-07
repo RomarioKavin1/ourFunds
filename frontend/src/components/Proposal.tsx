@@ -1,7 +1,7 @@
 import React from 'react';
 import Pending from '@/app/assets/Clock.svg';
-import Approved from '@/app/assets/Check Mark.svg';
-import Rejected from '@/app/assets/Cancel.svg';
+import Approved from '@/app/assets/checkmark.svg';
+import Rejected from '../app/assets/cancel.svg';
 import { useRouter } from 'next/navigation';
 
 const Proposal = ({ orgid, id, title, creatorAddress, status }) => {    
