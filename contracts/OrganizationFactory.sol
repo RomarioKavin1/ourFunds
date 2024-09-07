@@ -7,8 +7,6 @@ contract OrganizationFactory {
     Organization[] public organizations;
 
     event OrganizationCreated(address indexed organization, string name);
-
-    // Create a new organization with name, share price, and initial details
     function createOrganization(
         string memory name,
         uint256 sharePrice
@@ -17,8 +15,6 @@ contract OrganizationFactory {
         organizations.push(newOrg);
         emit OrganizationCreated(address(newOrg), name);
     }
-
-    // Fetch all organizations
     function getOrganizations() external view returns (Organization[] memory) {
         return organizations;
     }
