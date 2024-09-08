@@ -21,37 +21,37 @@ export type KYCViewerInfo = {
 };
 const exampleOrgList = [
   {
-    id: "322344",
+    id: "0x8D35f81BB330c585acFb7Bc499FD26DbC06faFA8",
     orgName: "NFT Hub Organization",
-    orgDescription: "#322344",
+    orgDescription: "0x8D35f81BB330c585acFb7Bc499FD26DbC06faFA8",
     generalDetails:
       "NFT Hub is a platform for NFT enthusiasts to share their collections and connect with other collectors.",
   },
   {
-    id: "322356",
+    id: "0xdB832974E99fbABFB8eeF31A5999D86Bf8B33cfc",
     orgName: "Crypto Club",
-    orgDescription: "#322356",
+    orgDescription: "0xdB832974E99fbABFB8eeF31A5999D86Bf8B33cfc",
     generalDetails:
       "Crypto Club is a community of crypto enthusiasts who share their knowledge and insights about the crypto world.",
   },
   {
-    id: "322357",
+    id: "0xC2F571B1A283d9F666Cf38eE778C3DD00F6e3cD2",
     orgName: "Ethereum Foundation",
-    orgDescription: "#322357",
+    orgDescription: "0xC2F571B1A283d9F666Cf38eE778C3DD00F6e3cD2",
     generalDetails:
       "Ethereum Foundation is a non-profit organization dedicated to supporting the Ethereum blockchain.",
   },
   {
-    id: "322358",
+    id: "0x44d63feB3347D0c7ba46273879363A529BB5c3ee",
     orgName: "Blockchain Organization",
-    orgDescription: "#322358",
+    orgDescription: "0x44d63feB3347D0c7ba46273879363A529BB5c3ee",
     generalDetails:
       "Blockchain Organization is a community of blockchain developers and enthusiasts.",
   },
   {
-    id: "322359",
+    id: "0xc542B2A190660C050f5CD7B9c6ba1A469401E2f8",
     orgName: "Stock Market Club",
-    orgDescription: "#322359",
+    orgDescription: "0xc542B2A190660C050f5CD7B9c6ba1A469401E2f8",
     generalDetails:
       "Stock Market Club is a community of stock market investors who share their insights and strategies.",
   },
@@ -95,7 +95,9 @@ function Page() {
     }
   };
   const [orgList, setOrgList] = useState(exampleOrgList);
-
+  function shortenAddress(address: string, chars = 4): string {
+    return `${address.slice(0, chars + 2)}...${address.slice(-chars)}`;
+  }
   return (
     <div className="flex h-screen">
       <BackgroundGradient />
@@ -147,7 +149,7 @@ function Page() {
                   key={index}
                   id={org.id}
                   orgName={org.orgName}
-                  orgDescription={org.orgDescription}
+                  orgDescription={shortenAddress(org.orgDescription)}
                   generalDetails={org.generalDetails}
                   imageIndex={index}
                 />
