@@ -11,7 +11,7 @@ import KintoW from "../assets/kintoW.svg";
 import { fetchKYCViewerInfo, fetchOrgs } from "@/utils/kinto";
 import { createKintoSDK, KintoAccountInfo } from "kinto-web-sdk";
 //TODO: Add random image/color generator for org cards
-type KYCViewerInfo = {
+export type KYCViewerInfo = {
   isIndividual: boolean;
   isCorporate: boolean;
   isKYC: boolean;
@@ -94,7 +94,6 @@ function Page() {
       setLoading(false);
     }
   };
-  const [userId, setUserId] = useState("a45321dsd5c1csc4d");
   const [orgList, setOrgList] = useState(exampleOrgList);
 
   return (

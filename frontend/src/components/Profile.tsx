@@ -48,7 +48,7 @@ const Profile = ({ user }: { user: `0x${string}` | undefined }) => {
           alt="User"
           style={{ width: "22px", height: "22px" }}
         />
-        <p>{shortenAddress(user || "Login")}</p>
+        <p>{shortenAddress(user || "")}</p>
       </div>
 
       {isModalOpen && (
