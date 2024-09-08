@@ -37,7 +37,7 @@ const AddOrganization = () => {
     console.log(orgs);
   };
   const connectAndFetchKYC = async () => {
-    setLoading(true);
+    // setLoading(true);
     setError(null);
     try {
       const accountInfo = await kintoSDK.connect();
@@ -82,19 +82,22 @@ const AddOrganization = () => {
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     console.log({ organizationName, organizationDescription });
-    await createOrg(organizationName, organizationAmout).then(() => {
-      toast.success("New Organization successfully created", {
-        position: "bottom-right", // Position of the toast
-        autoClose: 2000, // Duration in milliseconds
-        hideProgressBar: false, // Show progress bar
-        closeOnClick: true, // Close on click
-        pauseOnHover: true, // Pause on hover
-        draggable: true, // Allow dragging
-        progress: undefined, // Progress bar
-        theme: "dark", // Theme for the toast
-        onClose: () => router.push("/home"),
-      });
-    });
+    setLoading(true);
+    await createOrg(organizationName, organizationAmout);
+    setLoading(false);
+    // .then(() => {
+    //   toast.success("New Organization successfully created", {
+    //     position: "bottom-right", // Position of the toast
+    //     autoClose: 2000, // Duration in milliseconds
+    //     hideProgressBar: false, // Show progress bar
+    //     closeOnClick: true, // Close on click
+    //     pauseOnHover: true, // Pause on hover
+    //     draggable: true, // Allow dragging
+    //     progress: undefined, // Progress bar
+    //     theme: "dark", // Theme for the toast
+    //     onClose: () => router.push("/home"),
+    //   });
+    // });
   };
   const createOrg = async (name: string, shareprice: number) => {
     await createOrganization(kintoSDK, name, shareprice);
@@ -110,50 +113,52 @@ const AddOrganization = () => {
       <BackgroundGradient />
       <Profile user={kintoAccount?.walletAddress} />
 
-      <div className="flex flex-col justify-center items-center">
-        <h1 className="text-6xl text-third z-10 font-extrabold mb-16">
-          Create New Organization
-        </h1>
-        <div className="border h-auto p-16 w-3/5 m-10 rounded-[20px] z-10 bg-[white]/[0.08] border-[white]/[0.12]">
-          <form onSubmit={handleSubmit}>
-            {inputFields.map(
-              ({ title, stateValue, setter, textArea }, index) => (
-                <div key={index} className="mb-8">
-                  <label className="block text-white text-2xl font-medium mb-6">
-                    {title}
-                  </label>
-                  {textArea ? (
-                    <textarea
-                      className="w-full p-3 rounded-md bg-[white]/[0.05] border border-[white]/[0.2] text-white hover:bg-[white]/[0.08]"
-                      onChange={(e) => setter(e.target.value)}
-                      placeholder={`Enter ${title.toLowerCase()}`}
-                      rows={4}
-                      value={stateValue} // Bind stateValue directly to individual state
-                    />
-                  ) : (
-                    <input
-                      className="w-full p-3 rounded-md bg-[white]/[0.05] border border-[white]/[0.2] text-white hover:bg-[white]/[0.08]"
-                      type="text"
-                      onChange={(e) => setter(e.target.value)}
-                      placeholder={`Enter ${title.toLowerCase()}`}
-                      value={stateValue} // Bind stateValue directly to individual state
-                    />
-                  )}
-                </div>
-              )
-            )}
-            <div className="flex justify-center">
-              <button
-                className="bg-[white]/[0.12] py-2 px-4 rounded-lg flex items-center mt-10 
+      {!loading && (
+        <div className="flex flex-col justify-center items-center">
+          <h1 className="text-6xl text-third z-0 font-extrabold mb-16">
+            Create New Organization
+          </h1>
+          <div className="border h-auto p-16 w-3/5 m-10 rounded-[20px] z-0 bg-[white]/[0.08] border-[white]/[0.12]">
+            <form onSubmit={handleSubmit}>
+              {inputFields.map(
+                ({ title, stateValue, setter, textArea }, index) => (
+                  <div key={index} className="mb-8">
+                    <label className="block text-white text-2xl font-medium mb-6">
+                      {title}
+                    </label>
+                    {textArea ? (
+                      <textarea
+                        className="w-full p-3 rounded-md bg-[white]/[0.05] border border-[white]/[0.2] text-white hover:bg-[white]/[0.08]"
+                        onChange={(e) => setter(e.target.value)}
+                        placeholder={`Enter ${title.toLowerCase()}`}
+                        rows={4}
+                        value={stateValue} // Bind stateValue directly to individual state
+                      />
+                    ) : (
+                      <input
+                        className="w-full p-3 rounded-md bg-[white]/[0.05] border border-[white]/[0.2] text-white hover:bg-[white]/[0.08]"
+                        type="text"
+                        onChange={(e) => setter(e.target.value)}
+                        placeholder={`Enter ${title.toLowerCase()}`}
+                        value={stateValue} // Bind stateValue directly to individual state
+                      />
+                    )}
+                  </div>
+                )
+              )}
+              <div className="flex justify-center">
+                <button
+                  className="bg-[white]/[0.12] py-2 px-4 rounded-lg flex items-center mt-10 
                         gap-4 border-[white]/[0.2] border transition-all hover:bg-[white]/[0.2]"
-                type="submit"
-              >
-                Create Organization
-              </button>
-            </div>
-          </form>
+                  type="submit"
+                >
+                  Create Organization
+                </button>
+              </div>
+            </form>
+          </div>
         </div>
-      </div>
+      )}
 
       {/* ToastContainer should be included at the top level of your app */}
       <ToastContainer />

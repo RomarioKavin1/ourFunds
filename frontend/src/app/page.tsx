@@ -1,33 +1,48 @@
 "use client";
 
 import Sponsor from "@/components/Sponser";
-import React from "react";
+import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import Kinto from "./assets/kinto.png";
 import KintoW from "./assets/kintoW.svg";
-import XMTP from "./assets/xmtp.png";
 import signprotocol from "./assets/signprotocol.png";
 import BackgroundGradient from "@/components/BackgroundGradient";
+import { fetchKYCViewerInfo } from "@/utils/kinto";
+import { createKintoSDK, KintoAccountInfo } from "kinto-web-sdk";
+import { KYCViewerInfo } from "./home/page";
 
 //TODO: Import other sponser images and add the objects to the sponsorImages array
 
 const Page = () => {
   const router = useRouter();
-
-  const sponsorImages = [Kinto, XMTP, signprotocol];
-
+  const appAddress = "0x2F10715B3439a8606eF3f7a2e6927ea2da735C67";
+  if (!appAddress) {
+    throw new Error("NEXT_PUBLIC_KINTO_APP_ADDRESS is not defined");
+  }
+  const [kycInfo, setKYCInfo] = useState<KYCViewerInfo | null>(null);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string | null>(null);
+  const kintoSDK = createKintoSDK(appAddress);
+  const [kintoAccount, setKintoAccount] = useState<KintoAccountInfo>();
+  const [orgs, setOrgs] = useState<any[]>([]);
+  const sponsorImages = [Kinto, signprotocol];
+  const handleClick = async () => {
+    console.log("Button clicked");
+    try {
+      const accountInfo = await kintoSDK.createNewWallet();
+      console.log("Connected account info:", accountInfo);
+      if (accountInfo != null) {
+        router.push("/home");
+      }
+    } catch (error) {
+      console.error("Failed to connect:", error);
+    }
+  };
   return (
     <div className="flex flex-col h-screen">
       <BackgroundGradient />
-      {/* Navbar */}
-      {/* <nav className=" bg-[white]/[0.12] h-12 rounded-lg mt-10 w-4/5 mx-auto text-white p-4">
-        <h1 className="text-lg font-bold"></h1>
-      </nav> */}
-
-      {/* Hero Section */}
-
       <div className="flex-grow mt-48 flex flex-col items-center z-10 justify-center">
-        <img src="/crowdfund.png" className="w-96" />
+        <img src="/crowdfund.png" className="w-1/4" />
         <h1 className="text-8xl font-extrabold text-third">OurFunds</h1>
         <p className="mt-10 font-medium text-xl">
           A common fund DAO (Decentralized autonomous organization) management
@@ -41,7 +56,9 @@ const Page = () => {
           className=" bg-[white]/[0.12] py-2 px-4 rounded-lg flex items-center mt-10 
           gap-4 border-[white]/[0.2] border transition-all hover:bg-[white]/[0.2]"
           type="button"
-          onClick={() => router.push("/home")}
+          onClick={() => {
+            handleClick();
+          }}
         >
           <img
             src={KintoW.src}
