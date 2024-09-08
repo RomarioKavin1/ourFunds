@@ -4,7 +4,7 @@ import Green from "../app/assets/circlegreen.svg";
 import Orange from "../app/assets/circleorange.svg";
 import Modal from "./Modal";
 
-const Profile = ({ user }: { user: string }) => {
+const Profile = ({ user }: { user: `0x${string}` | undefined }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const [isKYC, setIsKYC] = useState(true);
@@ -48,7 +48,7 @@ const Profile = ({ user }: { user: string }) => {
           alt="User"
           style={{ width: "22px", height: "22px" }}
         />
-        <p>{shortenAddress(user)}</p>
+        <p>{shortenAddress(user || "Login")}</p>
       </div>
 
       {isModalOpen && (
